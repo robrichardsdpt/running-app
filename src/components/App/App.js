@@ -8,6 +8,11 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+// import Home from '../Home/Home'
+import CreateRun from '../Create/Create'
+import Profile from '../Profile/Profile'
+import Search from '../Search/Search'
+import RunDetail from '../RunDetail/RunDetail'
 
 class App extends Component {
   constructor () {
@@ -42,12 +47,37 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          {/* <Route path='/' render={() => (
+            <Home/>
+          )}
+          /> */}
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
+          <AuthenticatedRoute user={user} path='/create' render={() => (
+            <CreateRun msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/profile' render={() => (
+            <Profile msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/search' render={() => (
+            <Search msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/run-detail/:id' render={(userRunProps) => {
+            const { match, history } = userRunProps
+            const currentRunId = match.params.id
+            return (
+              <RunDetail
+                id={currentRunId}
+                user={user}
+                msgAlert={this.msgAlert}
+                history={history}
+              />
+            )
+          } } />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
