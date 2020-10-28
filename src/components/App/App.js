@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import CreateRun from '../Create/Create'
 import Profile from '../Profile/Profile'
+// import Graph from '../Graph/Graph'
 import Search from '../Search/Search'
 import RunDetail from '../RunDetail/RunDetail'
 
