@@ -321,7 +321,7 @@ class RunDetail extends React.Component {
             </Col>
             <Col>
               <Form.Label>Time taken(HH:MM:SS): Previous time = {timeConverted(this.state.run.time)}
-              ***Please input in total seconds (site will calclate above)***</Form.Label>
+              ***Please input in total seconds (site will calculate above)***</Form.Label>
               <Form.Control name="time" id="time" pattern="[0-9]*" onChange={this.handleTimeChange} type="text" value={this.state.run.time} />
             </Col>
             <Col>
