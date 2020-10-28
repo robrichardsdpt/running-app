@@ -22,10 +22,12 @@ class Home extends React.Component {
 
   render () {
     const theme = {
+      display: 'block',
       backgroundImage: `url(${this.state.image})`,
-      height: '1200px',
-      width: '1000px',
-      color: 'white'
+      height: '50vh',
+      width: 'auto',
+      color: 'white',
+      objectFit: 'cover'
     }
     console.log(this.state)
     return (

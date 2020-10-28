@@ -1,2 +1,35 @@
 $primary: black;
 @import '~bootstrap/scss/bootstrap';
+
+.create-header {
+  background-color: silver;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.create-stack {
+  border: solid;
+  box-shadow: 10px 5px 5px silver;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.create-submit {
+  padding: 5px;
+}
+
+.card-header {
+  background-color: silver;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.stack {
+  border: solid;
+  box-shadow: 10px 5px 5px silver;
+  margin-bottom: 10px;
+}

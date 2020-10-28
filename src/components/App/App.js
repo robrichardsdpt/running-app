@@ -8,7 +8,7 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
-// import Home from '../Home/Home'
+import Home from '../Home/Home'
 import CreateRun from '../Create/Create'
 import Profile from '../Profile/Profile'
 import Search from '../Search/Search'
@@ -47,10 +47,10 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          {/* <Route path='/' render={() => (
-            <Home/>
+          <AuthenticatedRoute user={user} path='/home' render={() => (
+            <Home setUser={this.setUser}/>
           )}
-          /> */}
+          />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />

@@ -3,6 +3,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
 class Profile extends React.Component {
@@ -47,6 +48,12 @@ class Profile extends React.Component {
         'm': minutes,
         's': secs
       }
+      if (obj.m < 10) {
+        obj.m = `0${obj.m}`
+      }
+      if (obj.s < 10) {
+        obj.s = `0${obj.s}`
+      }
       return `${obj.h}:${obj.m}:${obj.s}`
     }
 
@@ -86,10 +93,10 @@ class Profile extends React.Component {
     }
     const userRunArray = this.state.userRuns.map(run => {
       return (
-        <div key={run._id} size="4" className="grid">
-          <Col>
-            <Link to={`/run-detail/${run.id}`}>
-              {run.date}</Link>
+        <div key={run.id} size="4" className="stack">
+          <Col className='card-header'>
+            <h5>{run.date}</h5>
+            <Link to={`/run-detail/${run.id}`}><Button className='edit-run-profile'> Edit</Button></Link>
           </Col>
           <Col>
             {run.location}
@@ -168,10 +175,10 @@ class Profile extends React.Component {
     }
 
     let jsx
-    // while the books are loading
+    // while the runs are loading
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
-      // if no books
+      // if no runs
     } else if (this.state.userRuns.length === 0) {
       jsx = <p>No runs, please add one. </p>
       // when the request is complete
@@ -183,9 +190,9 @@ class Profile extends React.Component {
       )
     }
     return (
-      <div className='profile'>
+      <div className='container'>
+        <h2>{this.props.user.email}</h2>
         <div>
-          <h2>{this.props.user.email}</h2>
           <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
           <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
           <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>

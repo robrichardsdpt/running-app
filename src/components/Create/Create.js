@@ -135,8 +135,10 @@ class CreateRun extends React.Component {
   }
   render () {
     return (
-      <div>
-        <h3>Create a new run</h3>
+      <div className='create-stack'>
+        <div className='create-header'>
+          <h3>Create a new run</h3>
+        </div>
         <Form onSubmit={this.handleSubmit} >
           <Form.Label>Date:</Form.Label>
           <DatePicker
@@ -157,7 +159,7 @@ class CreateRun extends React.Component {
           <Form.Control name="location" id="location" onChange={this.handleChange} type="text" value={this.state.location} />
           <Form.Label>Any comments on the run:</Form.Label>
           <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" value={this.state.notes} />
-          <Button variant='primary' type="submit"> Submit </Button>
+          <Button variant='primary' type="submit" className='create-submit'> Submit </Button>
         </Form>
       </div>
     )
