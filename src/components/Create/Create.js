@@ -78,6 +78,9 @@ class CreateRun extends React.Component {
     const remainder = milesUncorrected - milesInMinutes
     let seconds = remainder * 60
     seconds = Math.round(seconds)
+    if (seconds < 10) {
+      seconds = `0${seconds}`
+    }
     return `${milesInMinutes}:${seconds} min/mile`
   }
   averageSpeed = (distance, time) => {

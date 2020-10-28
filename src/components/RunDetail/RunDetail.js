@@ -120,6 +120,9 @@ class RunDetail extends React.Component {
     const remainder = milesUncorrected - milesInMinutes
     let seconds = remainder * 60
     seconds = Math.round(seconds)
+    if (seconds < 10) {
+      seconds = `0${seconds}`
+    }
     return `${milesInMinutes}:${seconds} min/mile`
   }
   averageSpeed = (distance, time) => {
@@ -310,7 +313,7 @@ class RunDetail extends React.Component {
                 id="date"
                 value={this.state.run.date}
                 onChange={ this.handleChange}
-              />Previous date = {this.state.run.date}
+              />
             </Col>
             <Col>
               <Form.Label>Location(Be as specific as you like):</Form.Label>
@@ -335,13 +338,15 @@ class RunDetail extends React.Component {
               <Form.Label>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
               <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="text" value={this.state.run.rpe} />
             </Col>
-            <Col>
+            <Col className='card-form'>
               <Form.Label>Any comments on the run:</Form.Label>
               <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" value={this.state.run.notes} />
             </Col>
-            <Button variant="primary" type="button" onClick={this.handleDelete}>Delete</Button>
-            <Button variant="primary" type="submit" onClick={this.onEditButtonClick}> Edit</Button>
-            <Link to={'/profile/'}><Button variant="primary">Go Back to Profile</Button></Link>
+            <Col className='card-form'>
+              <Button variant="primary" type="button" onClick={this.handleDelete}>Delete</Button>
+              <Button variant="primary" type="submit" onClick={this.onEditButtonClick}> Edit</Button>
+              <Link to={'/profile/'}><Button variant="primary">Go Back to Profile</Button></Link>
+            </Col>
           </Form>
         </div>
       )

@@ -28,8 +28,21 @@ $primary: black;
   justify-content: space-between;
 }
 
+.column-for-data {
+  height: 90vh;
+  overflow: scroll;
+}
+
 .stack {
   border: solid;
   box-shadow: 10px 5px 5px silver;
   margin-bottom: 10px;
+}
+.grid {
+  border: solid;
+  box-shadow: 10px 5px 5px silver;
+  margin-bottom: 10px;
+}
+.card-form {
+  padding-bottom: 10px;
 }
