@@ -17,6 +17,8 @@ class CreateRun extends React.Component {
         date: null,
         time: '',
         distance: '',
+        average_pace: '',
+        average_spd: '',
         notes: '',
         rpe: '',
         location: '',
@@ -70,6 +72,18 @@ class CreateRun extends React.Component {
       console.log('put the appropriate amount of data')
     }
   }
+  averagePace = (distance, time) => {
+    const milesUncorrected = (time / 60) / distance
+    const milesInMinutes = Math.floor(milesUncorrected)
+    const remainder = milesUncorrected - milesInMinutes
+    let seconds = remainder * 60
+    seconds = Math.round(seconds)
+    return `${milesInMinutes}:${seconds} min/mile`
+  }
+  averageSpeed = (distance, time) => {
+    const runSpeed = (distance * 3600) / (time)
+    return runSpeed
+  }
 
   handleChange = (event) => {
     const formattedDate = moment(this.state.newDate).format('YYYY-MM-DD')
@@ -85,6 +99,12 @@ class CreateRun extends React.Component {
     runCopy[runKey] = userInput
     runCopy['date'] = formattedDate
     runCopy['time'] = formattedTime
+    if (runCopy.distance && formattedTime) {
+      const pace = this.averagePace(runCopy.distance, formattedTime)
+      const speed = this.averageSpeed(runCopy.distance, formattedTime)
+      runCopy['average_pace'] = pace
+      runCopy['average_spd'] = speed
+    }
     // updating the state with our new copy
     this.setState({ run: runCopy
     })

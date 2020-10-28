@@ -10,7 +10,7 @@ class Home extends React.Component {
     }
   }
   componentDidMount () {
-    axios.get('https://api.unsplash.com/photos/random/?query=running&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
+    axios.get('https://api.unsplash.com/photos/random/?collections=98358577&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
       .then(response => {
         console.log(response)
         this.setState({
@@ -24,7 +24,7 @@ class Home extends React.Component {
     const theme = {
       display: 'block',
       backgroundImage: `url(${this.state.image})`,
-      height: '50vh',
+      height: '75vh',
       width: 'auto',
       color: 'white',
       objectFit: 'cover'
