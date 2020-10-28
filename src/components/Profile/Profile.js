@@ -84,6 +84,34 @@ class Profile extends React.Component {
       return `${obj.h}:${obj.m}:${obj.s}`
     }
 
+    const averageTimeRunning = function (array) {
+      let totalTime = 0
+      for (let i = 0; i < array.length; i++) {
+        totalTime += array[i].time
+      }
+      const averageTime = totalTime / array.length
+      const hours = Math.floor(averageTime / (60 * 60))
+
+      const divisorForMinutes = averageTime % (60 * 60)
+      const minutes = Math.floor(divisorForMinutes / 60)
+
+      const divisorForSeconds = divisorForMinutes % 60
+      const secs = Math.ceil(divisorForSeconds)
+
+      const obj = {
+        'h': hours,
+        'm': minutes,
+        's': secs
+      }
+      if (obj.m < 10) {
+        obj.m = `0${obj.m}`
+      }
+      if (obj.s < 10) {
+        obj.s = `0${obj.s}`
+      }
+      return `${obj.h}:${obj.m}:${obj.s} per run`
+    }
+
     const totalDistanceRunning = function (array) {
       let totalDistance = 0
       for (let i = 0; i < array.length; i++) {
@@ -99,19 +127,25 @@ class Profile extends React.Component {
             <Link to={`/run-detail/${run.id}`}><Button className='edit-run-profile'> Edit</Button></Link>
           </Col>
           <Col>
-            {run.location}
+            Location:  {run.location}
           </Col>
           <Col>
-            {timeConverted(run.time)}
+            Duration:  {timeConverted(run.time)}
           </Col>
           <Col>
-            {run.distance}
+            Distance run (in miles):  {run.distance}
           </Col>
           <Col>
-            {run.difficulty}
+            Average pace:  {run.average_pace}
           </Col>
           <Col>
-            {run.notes}
+            Average speed:  {parseFloat(run.average_spd).toFixed(2)} mph
+          </Col>
+          <Col>
+            Difficulty (RPE):  {run.rpe} out of 10
+          </Col>
+          <Col>
+            Notes:  {run.notes}
           </Col>
         </div>
       )
@@ -146,7 +180,7 @@ class Profile extends React.Component {
       return `${obj.h}:${obj.m}:${obj.s}`
     }
     const averageDistancePerRun = function (distance, runs) {
-      return distance / runs
+      return parseFloat(distance / runs).toFixed(2)
     }
     const maxDistanceRunning = function (array) {
       let maxDistance = 0
@@ -173,6 +207,17 @@ class Profile extends React.Component {
       }
       return `${milesInMinutes}:${seconds}`
     }
+    const fastestPace = function (array) {
+      let fastestSpd = 0
+      let fastestPace = ''
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].average_spd > fastestSpd) {
+          fastestSpd = parseFloat(array[i].average_spd).toFixed(2)
+          fastestPace = array[i].average_pace
+        }
+      }
+      return `${fastestPace} or ${fastestSpd} mph`
+    }
 
     let jsx
     // while the runs are loading
@@ -195,12 +240,13 @@ class Profile extends React.Component {
         <div>
           <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
           <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
+          <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
+          <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
           <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
-          <h4>{`Longest Run(in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
           <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
-          <h4>{`Longest Distance: ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
+          <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
           <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
-          <h4>{`Fastest Pace: ${userRunArray.length}`}</h4>
+          <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
         </div>
         {jsx}
       </div>

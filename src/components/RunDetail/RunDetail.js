@@ -76,22 +76,28 @@ class RunDetail extends React.Component {
       jsx = (
         <div size="4" className="grid">
           <Col className='card-header'>
-            {this.state.run.date}
+            <h5>{this.state.run.date}</h5>
           </Col>
           <Col>
-            {this.state.run.location}
+            Location:  {this.state.run.location}
           </Col>
           <Col>
-            {timeConverted(this.state.run.time)}
+            Duration:  {timeConverted(this.state.run.time)}
           </Col>
           <Col>
-            {this.state.run.distance}
+            Distance run (in miles):  {this.state.run.distance}
           </Col>
           <Col>
-            {this.state.run.difficulty}
+            Average pace:  {this.state.run.average_pace}
           </Col>
           <Col>
-            {this.state.run.notes}
+            Average speed:  {this.state.run.average_spd} mph
+          </Col>
+          <Col>
+            Difficulty (RPE):  {this.state.run.rpe} out of 10
+          </Col>
+          <Col>
+            Notes:  {this.state.run.notes}
           </Col>
           <Button variant="primary" type="button" onClick={this.handleDelete}>Delete</Button>
           <Button variant="primary" type="button" onClick={this.onEditButtonClick}> Edit</Button>
