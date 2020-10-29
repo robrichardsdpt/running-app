@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 // import styled from 'styled-components'
+import Quote from '../Quote/Quote'
 
 class Home extends React.Component {
   constructor (props) {
@@ -34,6 +35,9 @@ class Home extends React.Component {
     console.log(this.state)
     return (
       <div style={theme}>
+        <div className="quote">
+          <Quote/>
+        </div>
       </div>
     )
   }

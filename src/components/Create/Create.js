@@ -7,9 +7,9 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import messages from '../AutoDismissAlert/messages'
-import DatePicker from 'react-datepicker'
+// import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import moment from 'moment'
+// import moment from 'moment'
 
 class CreateRun extends React.Component {
   constructor (props) {
@@ -32,19 +32,19 @@ class CreateRun extends React.Component {
     }
   }
 
-  handleDateChange = (date) => {
-    console.log(date)
-    this.setState({
-      newDate: date
-    })
-    const formattedDate = moment(date).format('YYYY-MM-DD')
-    console.log(this.state.newDate)
-    const runCopy = Object.assign({}, this.state.run)
-    runCopy['date'] = formattedDate
-    console.log(runCopy)
-    this.setState({ run: runCopy
-    })
-  }
+  // handleDateChange = (date) => {
+  //   console.log(date)
+  //   this.setState({
+  //     newDate: date
+  //   })
+  //   const formattedDate = moment(date).format('YYYY-MM-DD')
+  //   console.log(this.state.newDate)
+  //   const runCopy = Object.assign({}, this.state.run)
+  //   runCopy['date'] = formattedDate
+  //   console.log(runCopy)
+  //   this.setState({ run: runCopy
+  //   })
+  // }
 
   handleTimeChange = (event) => {
     const timeArray = event.target.value.split(':')
@@ -122,7 +122,7 @@ class CreateRun extends React.Component {
   }
 
   handleChange = (event) => {
-    const formattedDate = moment(this.state.newDate).format('YYYY-MM-DD')
+    // const formattedDate = moment(this.state.newDate).format('YYYY-MM-DD')
     const formattedTime = this.state.totalTimeInSeconds
     // get the value that the user typed in
     const userInput = event.target.value
@@ -133,7 +133,7 @@ class CreateRun extends React.Component {
     // Object.assign({}, object-to-copy) allows you to combine two objects
     // updating the key in our state with what the user typed in
     runCopy[runKey] = userInput
-    runCopy['date'] = formattedDate
+    // runCopy['date'] = formattedDate
     runCopy['time'] = formattedTime
     if (runCopy.distance && formattedTime) {
       const pace = this.averagePace(runCopy.distance, formattedTime)
@@ -205,13 +205,12 @@ class CreateRun extends React.Component {
           <Col>
             <Form onSubmit={this.handleSubmit} >
               <Form.Label>Date:</Form.Label>
-              <DatePicker
+              <Form.Control
                 name="date"
                 id="date"
-                selected={ this.state.newDate }
-                onChange={ this.handleDateChange }
-                dateFormat="MM/dd/yyyy"
-                placeholder="MM/dd/yyyy"
+                type="date"
+                placeholder="MM/DD/YYYY"
+                onChange={ this.handleChange}
               />
               <br/>
               <Form.Label>Time taken(HH:MM:SS):</Form.Label>

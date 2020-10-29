@@ -12,7 +12,6 @@ import Home from '../Home/Home'
 import CreateRun from '../Create/Create'
 import Profile from '../Profile/Profile'
 // import Graph from '../Graph/Graph'
-import Search from '../Search/Search'
 import RunDetail from '../RunDetail/RunDetail'
 
 class App extends Component {
@@ -63,9 +62,6 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/profile' render={() => (
             <Profile msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/search' render={() => (
-            <Search msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/run-detail/:id' render={(userRunProps) => {
             const { match, history } = userRunProps

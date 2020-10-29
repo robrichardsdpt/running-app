@@ -307,10 +307,11 @@ class RunDetail extends React.Component {
         <div size="4" className="grid">
           <Form onSubmit={this.handleSubmit} >
             <Col className='card-header'>
-              <Form.Label>Date (YYYY-MM-DD):</Form.Label>
+              <Form.Label>Date:</Form.Label>
               <Form.Control
                 name="date"
                 id="date"
+                type="date"
                 value={this.state.run.date}
                 onChange={ this.handleChange}
               />

@@ -237,18 +237,18 @@ class Profile extends React.Component {
     }
     return (
       <div className='container'>
-        <h2 className='user-name'>{this.props.user.email}</h2>
+        <h1 className='user-name'>{this.props.user.email}</h1>
         <div className='row'>
           <Col className="stats">
-            <h5>{`Runs Tracked: ${userRunArray.length}`}</h5>
-            <h5>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h5>
-            <h5>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h5>
-            <h5>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h5>
-            <h5>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h5>
-            <h5>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h5>
-            <h5>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h5>
-            <h5>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h5>
-            <h5>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h5>
+            <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
+            <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
+            <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
+            <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
+            <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
+            <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
             <Route render={() => (
               <Home/>
             )}

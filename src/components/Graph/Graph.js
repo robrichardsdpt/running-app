@@ -1,71 +1,66 @@
-import React, { Component } from 'react'
-import CanvasJSReact from './canvasjs.react'
-// const CanvasJS = CanvasJSReact.CanvasJS
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
-const CanvasJSChart = CanvasJSReact.CanvasJSChart
+import React from "react";
+import { Line } from "react-chartjs-2";
+import { MDBContainer } from "mdbreact";
 
-const dataPoints = []
-class Graph extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isLoaded: false,
-      userRuns: [],
-      token: this.props.user.token
-    } // this.state
-  } // constructor
-  render () {
-    const options = {
-      theme: 'light2',
-      title: {
-        text: 'Average Speed'
-      },
-      axisY: {
-        title: 'Speed (mph)'
-      },
-      data: [{
-        type: 'line',
-        xValueFormatString: 'MMM YYYY',
-        yValueFormatString: '00.00',
-        dataPoints: dataPoints
-      }]
-    }
-    return (
-      <div>
-        <CanvasJSChart options = {options}
-        /*  onRef={ref => this.chart = ref} */
-        />
-      </div>
-    )
-  }
-
-  componentDidMount () {
-    const chart = this.chart
-    axios({
-      url: `${apiUrl}/runs/`,
-      method: 'GET',
-      headers: {
-        Authorization: 'Token ' + `${this.state.token}`
-      }
-    })
-      .then(response => {
-        this.setState({
-          isLoaded: true,
-          userRuns: response.data.runs
-        })
-      })
-      .then(function (data) {
-        for (let i = 0; i < data.length; i++) {
-          dataPoints.push({
-            x: new Date(this.state.runs.data[i].time),
-            y: this.state.runs.data[i].average_spd
-          })
+class ChartsPage extends React.Component {
+  state = {
+    dataLine: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [
+        {
+          label: "My First dataset",
+          fill: true,
+          lineTension: 0.3,
+          backgroundColor: "rgba(225, 204,230, .3)",
+          borderColor: "rgb(205, 130, 158)",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: "rgb(205, 130,1 58)",
+          pointBackgroundColor: "rgb(255, 255, 255)",
+          pointBorderWidth: 10,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgb(0, 0, 0)",
+          pointHoverBorderColor: "rgba(220, 220, 220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+          label: "My Second dataset",
+          fill: true,
+          lineTension: 0.3,
+          backgroundColor: "rgba(184, 185, 210, .3)",
+          borderColor: "rgb(35, 26, 136)",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: "rgb(35, 26, 136)",
+          pointBackgroundColor: "rgb(255, 255, 255)",
+          pointBorderWidth: 10,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgb(0, 0, 0)",
+          pointHoverBorderColor: "rgba(220, 220, 220, 1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [28, 48, 40, 19, 86, 27, 90]
         }
-        chart.render()
-      })
-      .catch(console.error)
+      ]
+    }
+  };
+
+  render() {
+    return (
+      <MDBContainer>
+        <h3 className="mt-5">Line chart</h3>
+        <Line data={this.state.dataLine} options={{ responsive: true }} />
+      </MDBContainer>
+    );
   }
 }
 
-export default Graph
+export default ChartsPage;
