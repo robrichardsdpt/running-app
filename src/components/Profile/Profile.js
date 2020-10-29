@@ -244,14 +244,16 @@ class Profile extends React.Component {
         <div className='row'>
           <Col className="stats">
             <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
-            <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
-            <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
-            <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
-            <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
-            <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
-            <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
-            <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
-            <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
+            <div className='inDepthStats'>
+              <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
+              <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
+              <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
+              <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
+              <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
+              <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
+              <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
+              <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
+            </div>
             {/* <Route render={() => (
               <Banner/>
             )}

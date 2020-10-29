@@ -173,15 +173,6 @@ class CreateRun extends React.Component {
       }))
       .then(() => history.push('/profile'))
       .catch(error => {
-        this.setState({ run: {
-          date: null,
-          time: '',
-          distance: '',
-          notes: '',
-          rpe: '',
-          location: '',
-          owner: ''
-        } })
         msgAlert({
           heading: 'Could not upload new run, failed with error: ' + error.messages,
           message: messages.uploadRunFailure,
@@ -210,9 +201,9 @@ class CreateRun extends React.Component {
               <Form.Label><h5>Time taken(HH:MM:SS):</h5></Form.Label>
               <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" placeholder="00:00:00" />
               <Form.Label><h5>Distance (miles):</h5></Form.Label>
-              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" min="0" placeholder="0.00" />
+              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" min="0" placeholder="0.00" step="0.01" />
               <Form.Label><h5>Difficulty (0-10 with 10 being most difficult, 0 being you were sleeping):</h5></Form.Label>
-              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" min="0" max="10" placeholder="0-10" />
+              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" min="0" max="10" placeholder="0-10" step="0.1" />
               <Form.Label><h5>Location (Be as specific as you like):</h5></Form.Label>
               <Form.Control name="location" id="location" onChange={this.handleChange} type="text" placeholder="Great Park, AnyTown" />
               <Form.Label><h5>Any comments on the run:</h5></Form.Label>

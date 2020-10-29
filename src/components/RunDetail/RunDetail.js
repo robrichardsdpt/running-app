@@ -231,17 +231,6 @@ class RunDetail extends React.Component {
       }))
       .then(history.push('/profile'))
       .catch(error => {
-        this.setState({ run: {
-          date: null,
-          time: '',
-          distance: '',
-          average_pace: '',
-          average_spd: '',
-          notes: '',
-          rpe: '',
-          location: '',
-          owner: ''
-        } })
         msgAlert({
           heading: 'Could not delete the run, failed with error: ' + error.messages,
           message: messages.deleteRunFailure,
@@ -326,7 +315,7 @@ class RunDetail extends React.Component {
             </Col>
             <Col>
               <Form.Label><h5>Distance (miles):</h5></Form.Label>
-              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" value={this.state.run.distance} min="0"/>
+              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" value={this.state.run.distance} min="0" step="0.01"/>
             </Col>
             <Col>
               <h5>Average pace:   {this.state.run.average_pace} </h5>
@@ -338,7 +327,7 @@ class RunDetail extends React.Component {
             </Col>
             <Col>
               <Form.Label><h5>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</h5></Form.Label>
-              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" value={this.state.run.rpe} min="0" max="10" />
+              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" value={this.state.run.rpe} min="0" max="10" step="0.1" />
             </Col>
             <Col className='card-form'>
               <Form.Label><h5>Any comments on the run:</h5></Form.Label>
