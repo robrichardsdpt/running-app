@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 // import styled from 'styled-components'
 
-class Home extends React.Component {
+class Banner extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -22,14 +22,14 @@ class Home extends React.Component {
 
   render () {
     const theme = {
-      display: 'flex',
-      justifyContent: 'center',
+      display: 'block',
       backgroundImage: `url(${this.state.image})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       width: '100%',
       height: '0',
-      paddingTop: '66.64%'
+      paddingTop: '50%',
+      marginTop: '20px'
     }
     console.log(this.state)
     return (
@@ -39,4 +39,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+export default Banner

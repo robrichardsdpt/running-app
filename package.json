@@ -21,6 +21,7 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-datepicker": "^3.3.0",
     "react-dom": "^16.4.2",
+    "react-fitted-image": "^1.0.1",
     "react-router-dom": "^4.3.1",
     "resolve": "1.6.0",
     "styled": "^1.0.0",

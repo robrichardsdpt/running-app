@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
+import Banner from '../Home/Banner'
+import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import messages from '../AutoDismissAlert/messages'
@@ -40,6 +42,8 @@ class CreateRun extends React.Component {
     const runCopy = Object.assign({}, this.state.run)
     runCopy['date'] = formattedDate
     console.log(runCopy)
+    this.setState({ run: runCopy
+    })
   }
 
   handleTimeChange = (event) => {
@@ -51,22 +55,51 @@ class CreateRun extends React.Component {
       const seconds = parseInt(timeArray[2])
       const totalSeconds = (hours * 3600) + (minutes * 60) + seconds
       console.log(totalSeconds)
+      const runCopy = Object.assign({}, this.state.run)
+      runCopy['time'] = totalSeconds
+      console.log(runCopy)
+      if (runCopy.distance && runCopy.time) {
+        const pace = this.averagePace(runCopy.distance, runCopy.time)
+        const speed = this.averageSpeed(runCopy.distance, runCopy.time)
+        runCopy['average_pace'] = pace
+        runCopy['average_spd'] = speed
+      }
       this.setState({
-        totalTimeInSeconds: totalSeconds
+        totalTimeInSeconds: totalSeconds,
+        run: runCopy
       })
     } else if (timeArray.length === 2) {
       const minutes = parseInt(timeArray[0])
       const seconds = parseInt(timeArray[1])
       const totalSeconds = (minutes * 60) + seconds
-      console.log(totalSeconds)
+      const runCopy = Object.assign({}, this.state.run)
+      runCopy['time'] = totalSeconds
+      console.log(runCopy)
+      if (runCopy.distance && runCopy.time) {
+        const pace = this.averagePace(runCopy.distance, runCopy.time)
+        const speed = this.averageSpeed(runCopy.distance, runCopy.time)
+        runCopy['average_pace'] = pace
+        runCopy['average_spd'] = speed
+      }
       this.setState({
-        totalTimeInSeconds: totalSeconds
+        totalTimeInSeconds: totalSeconds,
+        run: runCopy
       })
     } else if (timeArray.length === 1) {
       const totalSeconds = parseInt(timeArray[0])
       console.log(totalSeconds)
+      const runCopy = Object.assign({}, this.state.run)
+      runCopy['time'] = totalSeconds
+      console.log(runCopy)
+      if (runCopy.distance && runCopy.time) {
+        const pace = this.averagePace(runCopy.distance, runCopy.time)
+        const speed = this.averageSpeed(runCopy.distance, runCopy.time)
+        runCopy['average_pace'] = pace
+        runCopy['average_spd'] = speed
+      }
       this.setState({
-        totalTimeInSeconds: totalSeconds
+        totalTimeInSeconds: totalSeconds,
+        run: runCopy
       })
     } else {
       console.log('put the appropriate amount of data')
@@ -158,32 +191,42 @@ class CreateRun extends React.Component {
   }
   render () {
     return (
-      <div className='create-stack'>
-        <div className='create-header'>
-          <h3>Create a new run</h3>
-        </div>
-        <Form onSubmit={this.handleSubmit} >
-          <Form.Label>Date:</Form.Label>
-          <DatePicker
-            name="date"
-            id="date"
-            selected={ this.state.newDate }
-            onChange={ this.handleDateChange }
-            dateFormat="MM/dd/yyyy"
+      <div className='top-of-create'>
+        <Route render={() => (
+          <Banner
+            fit="contain"
           />
-          <br/>
-          <Form.Label>Time taken(HH:MM:SS):</Form.Label>
-          <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" value={this.state.time} />
-          <Form.Label>Distance(Miles):</Form.Label>
-          <Form.Control name="distance" id="distance" onChange={this.handleChange} type="text" value={this.state.distance} />
-          <Form.Label>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
-          <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="text" value={this.state.rpe} />
-          <Form.Label>Location(Be as specific as you like):</Form.Label>
-          <Form.Control name="location" id="location" onChange={this.handleChange} type="text" value={this.state.location} />
-          <Form.Label>Any comments on the run:</Form.Label>
-          <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" value={this.state.notes} />
-          <Button variant='primary' type="submit" className='create-submit'> Submit </Button>
-        </Form>
+        )}
+        />
+        <div className='create-stack'>
+          <div className='create-header'>
+            <h3>Create a new run</h3>
+          </div>
+          <Col>
+            <Form onSubmit={this.handleSubmit} >
+              <Form.Label>Date:</Form.Label>
+              <DatePicker
+                name="date"
+                id="date"
+                selected={ this.state.newDate }
+                onChange={ this.handleDateChange }
+                dateFormat="MM/dd/yyyy"
+              />
+              <br/>
+              <Form.Label>Time taken(HH:MM:SS):</Form.Label>
+              <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" value={this.state.time} />
+              <Form.Label>Distance(Miles):</Form.Label>
+              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="text" value={this.state.distance} />
+              <Form.Label>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
+              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="text" value={this.state.rpe} />
+              <Form.Label>Location(Be as specific as you like):</Form.Label>
+              <Form.Control name="location" id="location" onChange={this.handleChange} type="text" value={this.state.location} />
+              <Form.Label>Any comments on the run:</Form.Label>
+              <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" value={this.state.notes} />
+              <Button variant='primary' type="submit" className='create-submit'> Submit </Button>
+            </Form>
+          </Col>
+        </div>
       </div>
     )
   }

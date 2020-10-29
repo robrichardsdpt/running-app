@@ -4,8 +4,9 @@ import apiUrl from '../../apiConfig'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { Redirect, withRouter, Link } from 'react-router-dom'
+import { Redirect, withRouter, Link, Route } from 'react-router-dom'
 import messages from '../AutoDismissAlert/messages'
+import Home from '../Home/Home'
 // import DatePicker from 'react-datepicker'
 // import 'react-datepicker/dist/react-datepicker.css'
 // import moment from 'moment'
@@ -353,8 +354,12 @@ class RunDetail extends React.Component {
     }
     return (
       <div className='profile'>
-        <h2>{this.props.user.email}</h2>
+        <h2 className='user-name'>{this.props.user.email}</h2>
         {jsx}
+        <Route render={() => (
+          <Home/>
+        )}
+        />
       </div>
     ) // return
   } // render
