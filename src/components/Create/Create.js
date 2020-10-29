@@ -211,18 +211,19 @@ class CreateRun extends React.Component {
                 selected={ this.state.newDate }
                 onChange={ this.handleDateChange }
                 dateFormat="MM/dd/yyyy"
+                placeholder="MM/dd/yyyy"
               />
               <br/>
               <Form.Label>Time taken(HH:MM:SS):</Form.Label>
-              <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" value={this.state.time} />
-              <Form.Label>Distance(Miles):</Form.Label>
-              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="text" value={this.state.distance} />
-              <Form.Label>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
-              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="text" value={this.state.rpe} />
-              <Form.Label>Location(Be as specific as you like):</Form.Label>
-              <Form.Control name="location" id="location" onChange={this.handleChange} type="text" value={this.state.location} />
+              <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" placeholder="00:00:00" />
+              <Form.Label>Distance (miles):</Form.Label>
+              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" min="0" placeholder="0.00" />
+              <Form.Label>Difficulty (0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
+              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" min="0" max="10" placeholder="0-10" />
+              <Form.Label>Location (Be as specific as you like):</Form.Label>
+              <Form.Control name="location" id="location" onChange={this.handleChange} type="text" placeholder="Great Park, AnyTown" />
               <Form.Label>Any comments on the run:</Form.Label>
-              <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" value={this.state.notes} />
+              <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" placeholder="Some great philosophical findings from this run." />
               <Button variant='primary' type="submit" className='create-submit'> Submit </Button>
             </Form>
           </Col>

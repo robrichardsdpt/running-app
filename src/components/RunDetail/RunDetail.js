@@ -23,7 +23,6 @@ class RunDetail extends React.Component {
       totalTimeInSeconds: 0,
       timeFormatted: '',
       dateFormatted: '',
-      formShown: false,
       createdUserImageId: null,
       id: this.props.id
     } // this.state
@@ -308,7 +307,7 @@ class RunDetail extends React.Component {
         <div size="4" className="grid">
           <Form onSubmit={this.handleSubmit} >
             <Col className='card-header'>
-              <Form.Label>Date:</Form.Label>
+              <Form.Label>Date (YYYY-MM-DD):</Form.Label>
               <Form.Control
                 name="date"
                 id="date"
@@ -317,17 +316,17 @@ class RunDetail extends React.Component {
               />
             </Col>
             <Col>
-              <Form.Label>Location(Be as specific as you like):</Form.Label>
+              <Form.Label>Location (be as specific as you like):</Form.Label>
               <Form.Control name="location" id="location" onChange={this.handleChange} type="text" value={this.state.run.location} />
             </Col>
             <Col>
-              <Form.Label>Time taken(HH:MM:SS): Previous time = {timeConverted(this.state.run.time)}
-              ***Please input in total seconds (site will calculate above)***</Form.Label>
-              <Form.Control name="time" id="time" pattern="[0-9]*" onChange={this.handleTimeChange} type="text" value={this.state.run.time} />
+              <Form.Label>Time taken (total seconds): Time in HH:MM:SS = {timeConverted(this.state.run.time)}<br/>
+              ***Please input in total seconds (site will calculate in HH:MM:SS)***</Form.Label>
+              <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" placeholder={timeConverted(this.state.run.time)} min="0"/>
             </Col>
             <Col>
-              <Form.Label>Distance(Miles):</Form.Label>
-              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="text" value={this.state.run.distance} />
+              <Form.Label>Distance (miles):</Form.Label>
+              <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" value={this.state.run.distance} min="0"/>
             </Col>
             <Col>
               Average pace:  {this.state.run.average_pace}
@@ -337,7 +336,7 @@ class RunDetail extends React.Component {
             </Col>
             <Col>
               <Form.Label>Difficulty(0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
-              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="text" value={this.state.run.rpe} />
+              <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" value={this.state.run.rpe} min="0" max="10" />
             </Col>
             <Col className='card-form'>
               <Form.Label>Any comments on the run:</Form.Label>
