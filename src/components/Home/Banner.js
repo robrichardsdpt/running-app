@@ -22,18 +22,20 @@ class Banner extends React.Component {
 
   render () {
     const theme = {
-      display: 'block',
+      display: 'flex',
       backgroundImage: `url(${this.state.image})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
+      justifyContent: 'center',
       width: '100%',
       height: '0',
-      paddingTop: '50%',
+      paddingTop: '95%',
       marginTop: '20px'
     }
     console.log(this.state)
     return (
       <div style={theme}>
+        {/* <img src={`${this.state.image}`} alt='picture'/> */}
       </div>
     )
   }

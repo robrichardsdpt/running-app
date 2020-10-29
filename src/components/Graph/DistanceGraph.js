@@ -12,16 +12,16 @@ class ChartsPage extends React.Component {
       labels: [],
       datasets: [
         {
-          label: 'Average speed per run (mph)',
+          label: 'Distance per run (miles)',
           fill: true,
           lineTension: 0.3,
           backgroundColor: 'rgba(184, 185, 210, .3)',
-          borderColor: 'rgb(35, 26, 136)',
+          borderColor: 'rgb(136, 26, 35)',
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: 'rgb(35, 26, 136)',
+          pointBorderColor: 'rgb(136, 26, 35)',
           pointBackgroundColor: 'rgb(255, 255, 255)',
           pointBorderWidth: 10,
           pointHoverRadius: 5,
@@ -36,13 +36,6 @@ class ChartsPage extends React.Component {
   }
 
   render () {
-    const averageSpeedArray = function (data) {
-      const dataToArray = []
-      for (let i = 0; i < data.length; i++) {
-        dataToArray.push(data[i].average_spd)
-      }
-      return (dataToArray)
-    }
     const dateToArray = function (data) {
       const dataToArray = []
       for (let i = 0; i < data.length; i++) {
@@ -50,20 +43,26 @@ class ChartsPage extends React.Component {
       }
       return (dataToArray)
     }
-
+    const distanceToArray = function (data) {
+      const dataToArray = []
+      for (let i = 0; i < data.length; i++) {
+        dataToArray.push(data[i].distance)
+      }
+      return (dataToArray)
+    }
     console.log(this.props)
-    const reversedData = this.props.data.reverse()
-    const avgSpdArray = averageSpeedArray(reversedData)
+    const reversedData = this.props.data
     const dateArray = dateToArray(reversedData)
+    const distanceArray = distanceToArray(reversedData)
 
     const dataCopy = Object.assign({}, this.state.dataLine)
     dataCopy.labels = dateArray
-    dataCopy.datasets[0].data = avgSpdArray
+    dataCopy.datasets[0].data = distanceArray
 
     return (
       <div>
         <MDBContainer>
-          <h3 className='mt-5'>Average Speed</h3>
+          <h3 className='mt-5'>Distance</h3>
           <Line data={dataCopy} options={{ responsive: true }} />
         </MDBContainer>
       </div>

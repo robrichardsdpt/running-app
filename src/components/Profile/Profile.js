@@ -4,8 +4,11 @@ import apiUrl from '../../apiConfig'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
-import { Link, Route } from 'react-router-dom'
-import Home from '../Home/Home'
+import { Link } from 'react-router-dom'
+import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
+// import Banner from '../Home/Banner'
+import Graph from '../Graph/Graph'
+import DistanceGraph from '../Graph/DistanceGraph'
 
 class Profile extends React.Component {
   constructor (props) {
@@ -249,10 +252,16 @@ class Profile extends React.Component {
             <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
             <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
             <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
-            <Route render={() => (
-              <Home/>
+            {/* <Route render={() => (
+              <Banner/>
             )}
-            />
+            /> */}
+            <AuthenticatedRoute user={this.state.token} render={() => (
+              <Graph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
+            )} />
+            <AuthenticatedRoute user={this.state.token} render={() => (
+              <DistanceGraph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
+            )} />
           </Col>
           <Col className='column-for-data'>
             {jsx}

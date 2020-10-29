@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
-import { withRouter, Route } from 'react-router-dom'
-import Banner from '../Home/Banner'
+import { withRouter } from 'react-router-dom'
+// import Banner from '../Home/Banner'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -192,19 +192,14 @@ class CreateRun extends React.Component {
   render () {
     return (
       <div className='top-of-create'>
-        <Route render={() => (
-          <Banner
-            fit="contain"
-          />
-        )}
-        />
+        <h1 className='user-name'>{this.props.user.email}</h1>
         <div className='create-stack'>
           <div className='create-header'>
             <h3>Create a new run</h3>
           </div>
           <Col>
             <Form onSubmit={this.handleSubmit} >
-              <Form.Label>Date:</Form.Label>
+              <Form.Label><h5>Date:</h5></Form.Label>
               <Form.Control
                 name="date"
                 id="date"
@@ -212,16 +207,15 @@ class CreateRun extends React.Component {
                 placeholder="MM/DD/YYYY"
                 onChange={ this.handleChange}
               />
-              <br/>
-              <Form.Label>Time taken(HH:MM:SS):</Form.Label>
+              <Form.Label><h5>Time taken(HH:MM:SS):</h5></Form.Label>
               <Form.Control name="time" id="time" onChange={this.handleTimeChange} type="text" placeholder="00:00:00" />
-              <Form.Label>Distance (miles):</Form.Label>
+              <Form.Label><h5>Distance (miles):</h5></Form.Label>
               <Form.Control name="distance" id="distance" onChange={this.handleChange} type="number" min="0" placeholder="0.00" />
-              <Form.Label>Difficulty (0-10 with 10 being most difficult, 0 being you were sleeping):</Form.Label>
+              <Form.Label><h5>Difficulty (0-10 with 10 being most difficult, 0 being you were sleeping):</h5></Form.Label>
               <Form.Control name="rpe" id="rpe" onChange={this.handleChange} type="number" min="0" max="10" placeholder="0-10" />
-              <Form.Label>Location (Be as specific as you like):</Form.Label>
+              <Form.Label><h5>Location (Be as specific as you like):</h5></Form.Label>
               <Form.Control name="location" id="location" onChange={this.handleChange} type="text" placeholder="Great Park, AnyTown" />
-              <Form.Label>Any comments on the run:</Form.Label>
+              <Form.Label><h5>Any comments on the run:</h5></Form.Label>
               <Form.Control name="notes" id="notes" onChange={this.handleChange} type="text" placeholder="Some great philosophical findings from this run." />
               <Button variant='primary' type="submit" className='create-submit'> Submit </Button>
             </Form>

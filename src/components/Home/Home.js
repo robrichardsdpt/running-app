@@ -34,7 +34,9 @@ class Home extends React.Component {
     }
     console.log(this.state)
     return (
-      <div style={theme}>
+      <div>
+        <div style={theme}>
+        </div>
         <div className="quote">
           <Quote/>
         </div>
