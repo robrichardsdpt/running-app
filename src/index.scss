@@ -5,6 +5,18 @@ $primary: #303030;
 .body {
   font-family: 'Merriweather', serif;
 }
+
+.quote-landing {
+  padding-top: 250px
+}
+
+.landing-instruction {
+  display: flex;
+  font-size: 1.25rem;
+  justify-content: center;
+  padding-top: 50px;
+}
+
 .logo {
   font-family: 'Special Elite', cursive;
 }

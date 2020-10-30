@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import CreateRun from '../Create/Create'
 import Profile from '../Profile/Profile'
+import Landing from '../Landing/Landing'
 // import Graph from '../Graph/Graph'
 import RunDetail from '../RunDetail/RunDetail'
 
@@ -53,6 +54,9 @@ class App extends Component {
           />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+          )} />
+          <Route exact path='/' render={() => (
+            <Landing />
           )} />
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
