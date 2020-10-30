@@ -224,12 +224,15 @@ class Profile extends React.Component {
     }
 
     let jsx
+    let jsxData
     // while the runs are loading
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>
+      jsxData = <p>Loading...</p>
       // if no runs
     } else if (this.state.userRuns.length === 0) {
       jsx = <p>No runs, please add one. </p>
+      jsxData = <p>No runs, please add one. </p>
       // when the request is complete
     } else {
       jsx = (
@@ -237,34 +240,37 @@ class Profile extends React.Component {
           {userRunArray}
         </Container>
       )
+      jsxData = (
+        <Col className="stats">
+          <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
+          <div className='inDepthStats'>
+            <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
+            <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
+            <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
+            <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
+            <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
+            <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
+          </div>
+          {/* <Route render={() => (
+            <Banner/>
+          )}
+          /> */}
+          <AuthenticatedRoute user={this.state.token} render={() => (
+            <Graph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
+          )} />
+          <AuthenticatedRoute user={this.state.token} render={() => (
+            <DistanceGraph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
+          )} />
+        </Col>
+      )
     }
     return (
       <div className='container'>
         <h1 className='user-name'>{this.props.user.email}</h1>
         <div className='row'>
-          <Col className="stats">
-            <h4>{`Runs Tracked: ${userRunArray.length}`}</h4>
-            <div className='inDepthStats'>
-              <h4>{`Total Time Running: ${totalTimeRunning(this.state.userRuns)}`}</h4>
-              <h4>{`Average Time Running: ${averageTimeRunning(this.state.userRuns)}`}</h4>
-              <h4>{`Longest Run (in time): ${maxTimeRunning(this.state.userRuns)}`}</h4>
-              <h4>{`Total Distance Ran: ${totalDistanceRunning(this.state.userRuns)} miles`}</h4>
-              <h4>{`Average Distance per run: ${averageDistancePerRun(totalDistanceRunning(this.state.userRuns), userRunArray.length)} miles`}</h4>
-              <h4>{`Longest Run (in distance): ${maxDistanceRunning(this.state.userRuns)} miles`}</h4>
-              <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
-              <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
-            </div>
-            {/* <Route render={() => (
-              <Banner/>
-            )}
-            /> */}
-            <AuthenticatedRoute user={this.state.token} render={() => (
-              <Graph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
-            )} />
-            <AuthenticatedRoute user={this.state.token} render={() => (
-              <DistanceGraph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
-            )} />
-          </Col>
+          {jsxData}
           <Col className='column-for-data'>
             {jsx}
           </Col>
