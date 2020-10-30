@@ -32,10 +32,10 @@ class Quote extends React.Component {
       'Go fast enough to get there, but slow enough to see. – Jimmy Buffett',
       'Running is a road to self-awareness and reliance-you can push yourself to extremes and learn the harsh reality of your physical and mental limitations or coast quietly down a solitary path watching the earth spin beneath your feet. – Doris Brown Heritage'
     ]
+    // generates random quote from array to be shown on the screen
     const randomQuote = function (array) {
       return array[Math.floor(Math.random() * array.length)]
     }
-    console.log(quoteArray[0])
     return (
       <div className="quote">
         <h5>{randomQuote(quoteArray)}</h5>

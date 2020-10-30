@@ -7,42 +7,26 @@ import Button from 'react-bootstrap/Button'
 import { Redirect, withRouter, Link, Route } from 'react-router-dom'
 import messages from '../AutoDismissAlert/messages'
 import Banner from '../Home/Banner'
-// import DatePicker from 'react-datepicker'
-// import 'react-datepicker/dist/react-datepicker.css'
-// import moment from 'moment'
 
 class RunDetail extends React.Component {
   constructor (props) {
     super(props)
     console.log(this.props)
     this.state = {
+      // conditions for loading of files and redirects
       isLoaded: false,
       isUpdated: false,
+      isDeleted: false,
       run: {},
       token: this.props.user.token,
       totalTimeInSeconds: 0,
       timeFormatted: '',
       dateFormatted: '',
-      createdUserImageId: null,
       id: this.props.id
     } // this.state
   } // constructor
 
-  // handleDateChange = (date) => {
-  //   console.log(date)
-  //   this.setState({
-  //     newDate: date
-  //   })
-  //   const formattedDate = moment(date).format('YYYY-MM-DD')
-  //   console.log(this.state.newDate)
-  //   this.setState({
-  //     formattedDate: formattedDate
-  //   })
-  //   const runCopy = Object.assign({}, this.state.run)
-  //   runCopy['date'] = formattedDate
-  //   console.log(runCopy)
-  // }
-
+  // on update field for time, converts user input into back end appropriate data.
   handleTimeChange = (event) => {
     const timeArray = event.target.value.split(':')
     console.log(timeArray)
@@ -54,10 +38,6 @@ class RunDetail extends React.Component {
       console.log(totalSeconds)
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      // this.setState({
-      //   totalTimeInSeconds: totalSeconds,
-      //   timeFormatted: event.target.value
-      // })
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -71,15 +51,8 @@ class RunDetail extends React.Component {
       const minutes = parseInt(timeArray[0])
       const seconds = parseInt(timeArray[1])
       const totalSeconds = (minutes * 60) + seconds
-      console.log(totalSeconds)
-      // const runCopy = Object.assign({}, this.state.run)
-      // runCopy['time'] = totalSeconds
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      // this.setState({
-      //   totalTimeInSeconds: totalSeconds,
-      //   timeFormatted: event.target.value
-      // })
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -89,16 +62,10 @@ class RunDetail extends React.Component {
       this.setState({
         run: runCopy
       })
-      // return (totalSeconds)
     } else if (timeArray.length === 1) {
       const totalSeconds = parseInt(timeArray[0])
-      console.log(totalSeconds)
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      // this.setState({
-      //   totalTimeInSeconds: totalSeconds,
-      //   timeFormatted: event.target.value
-      // })
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -110,10 +77,11 @@ class RunDetail extends React.Component {
       })
       return (totalSeconds)
     } else {
-      console.log('put the appropriate amount of data')
+      console.error('put the appropriate amount of data')
     }
-    console.log('i made it into the time change')
   }
+
+  // calculates the average pace for the run and converts into user friendly time format of HH:MM:SS
   averagePace = (distance, time) => {
     const milesUncorrected = (time / 60) / distance
     const milesInMinutes = Math.floor(milesUncorrected)
@@ -125,25 +93,17 @@ class RunDetail extends React.Component {
     }
     return `${milesInMinutes}:${seconds} min/mile`
   }
+
+  // Calculates the average speed for the run
   averageSpeed = (distance, time) => {
     const runSpeed = (distance * 3600) / (time)
     return parseFloat(runSpeed).toFixed(2)
   }
 
+  // Handles all other form changes
   handleChange = (event) => {
-    // const formattedDate = moment(this.state.newDate).format('YYYY-MM-DD')
     const formattedTime = this.state.totalTimeInSeconds
-    // if (runKey === 'date') {
-    //   this.handleDateChange(event)
-    // }
     const runKey = event.target.name
-    // if (runKey === 'time') {
-    //   const timeIsInSeconds = this.handleTimeChange(event)
-    //   this.setState({ totalTimeInSeconds: timeIsInSeconds })
-    //   console.log(this.state.totalTimeInSeconds, timeIsInSeconds)
-    // }
-    // const formattedTime = this.state.run.time
-    // get the value that the user typed in
     console.log(formattedTime)
     const userInput = event.target.value
     // get the name of the input that the user typed in
@@ -152,8 +112,6 @@ class RunDetail extends React.Component {
     // Object.assign({}, object-to-copy) allows you to combine two objects
     // updating the key in our state with what the user typed in
     runCopy[runKey] = userInput
-    // runCopy['date'] = formattedDate
-    // runCopy['time'] = formattedTime
     console.log(runCopy)
     if (runCopy.distance && runCopy.time) {
       const pace = this.averagePace(runCopy.distance, runCopy.time)
@@ -168,11 +126,11 @@ class RunDetail extends React.Component {
     console.log(runCopy)
   }
 
+  // The edit submit and patch request
   onEditButtonClick = (event) => {
     event.preventDefault()
     const { msgAlert, history } = this.props
     const run = this.state.run
-    // const userImage = this.state.userImage
     axios({
       url: `${apiUrl}/runs/${this.props.id}/`,
       method: 'PATCH',
@@ -194,17 +152,6 @@ class RunDetail extends React.Component {
       }))
       .then(() => history.push('/profile'))
       .catch(error => {
-        this.setState({ run: {
-          date: '',
-          time: '',
-          distance: '',
-          average_pace: '',
-          average_spd: '',
-          notes: '',
-          rpe: '',
-          location: '',
-          owner: ''
-        } })
         msgAlert({
           heading: 'Could not upload your changes, failed with error: ' + error.messages,
           message: messages.uploadRunFailure,
@@ -213,6 +160,7 @@ class RunDetail extends React.Component {
       })
   }
 
+  // delete request
   handleDelete = () => {
     const { msgAlert, history } = this.props
     const userId = this.state.id
@@ -223,13 +171,15 @@ class RunDetail extends React.Component {
         Authorization: 'Token ' + `${this.state.token}`
       }
     })
-      .then(response => this.setState({ userRunId: this.state.createdRunId }))
+      .then(response => this.setState({
+        userRunId: this.state.createdRunId,
+        isUpdated: true }))
       .then(() => msgAlert({
         heading: 'Successfully Deleted a Run',
         message: messages.deleteRunSuccess,
         variant: 'success'
       }))
-      .then(history.push('/profile'))
+      .then(() => history.push('/profile'))
       .catch(error => {
         msgAlert({
           heading: 'Could not delete the run, failed with error: ' + error.messages,
@@ -240,6 +190,7 @@ class RunDetail extends React.Component {
       .catch(console.error)
   }
 
+  // show request
   componentDidMount () {
     axios({
       url: `${apiUrl}/runs/${this.props.id}/`,
@@ -259,9 +210,14 @@ class RunDetail extends React.Component {
   }
 
   render () {
+    // redirects if updated or delete, which bring you back to the updated profile page
     if (this.state.isUpdated) {
       return <Redirect to ={'/profile'} />
     }
+    if (this.state.isDeleted) {
+      return <Redirect to ={'/profile'} />
+    }
+    // converts the time to object for presentation to the user
     const timeConverted = function (seconds) {
       const hours = Math.floor(seconds / (60 * 60))
       const divisorForMinutes = seconds % (60 * 60)
@@ -282,11 +238,7 @@ class RunDetail extends React.Component {
       }
       return `${obj.h}:${obj.m}:${obj.s}`
     }
-    console.log(timeConverted(this.state.timeFormatted))
-    // const convertedTime = timeConverted(this.state.run.time)
-    // this.setState({ timeFormatted: convertedTime })
     let jsx
-    console.log(this.state.run.time)
     // while the runs are loading
     if (this.state.isLoaded === false) {
       jsx = <p>Loading...</p>

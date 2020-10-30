@@ -2,14 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { withRouter } from 'react-router-dom'
-// import Banner from '../Home/Banner'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import messages from '../AutoDismissAlert/messages'
-// import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-// import moment from 'moment'
 
 class CreateRun extends React.Component {
   constructor (props) {
@@ -32,20 +29,7 @@ class CreateRun extends React.Component {
     }
   }
 
-  // handleDateChange = (date) => {
-  //   console.log(date)
-  //   this.setState({
-  //     newDate: date
-  //   })
-  //   const formattedDate = moment(date).format('YYYY-MM-DD')
-  //   console.log(this.state.newDate)
-  //   const runCopy = Object.assign({}, this.state.run)
-  //   runCopy['date'] = formattedDate
-  //   console.log(runCopy)
-  //   this.setState({ run: runCopy
-  //   })
-  // }
-
+  // handles the time change element and converts from user friendly format to seconds, intuitively
   handleTimeChange = (event) => {
     const timeArray = event.target.value.split(':')
     console.log(timeArray)
@@ -54,10 +38,8 @@ class CreateRun extends React.Component {
       const minutes = parseInt(timeArray[1])
       const seconds = parseInt(timeArray[2])
       const totalSeconds = (hours * 3600) + (minutes * 60) + seconds
-      console.log(totalSeconds)
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      console.log(runCopy)
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -74,7 +56,6 @@ class CreateRun extends React.Component {
       const totalSeconds = (minutes * 60) + seconds
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      console.log(runCopy)
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -87,10 +68,8 @@ class CreateRun extends React.Component {
       })
     } else if (timeArray.length === 1) {
       const totalSeconds = parseInt(timeArray[0])
-      console.log(totalSeconds)
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
-      console.log(runCopy)
       if (runCopy.distance && runCopy.time) {
         const pace = this.averagePace(runCopy.distance, runCopy.time)
         const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -102,9 +81,11 @@ class CreateRun extends React.Component {
         run: runCopy
       })
     } else {
-      console.log('put the appropriate amount of data')
+      console.error('put the appropriate amount of data')
     }
   }
+
+  // calculates average pace based on input of time and distance.  Returns in user friendly format.
   averagePace = (distance, time) => {
     const milesUncorrected = (time / 60) / distance
     const milesInMinutes = Math.floor(milesUncorrected)
@@ -116,13 +97,15 @@ class CreateRun extends React.Component {
     }
     return `${milesInMinutes}:${seconds} min/mile`
   }
+
+  // calculates average speed based on user input of time and distance.
   averageSpeed = (distance, time) => {
     const runSpeed = (distance * 3600) / (time)
     return runSpeed
   }
 
+  // handles all other user input
   handleChange = (event) => {
-    // const formattedDate = moment(this.state.newDate).format('YYYY-MM-DD')
     const formattedTime = this.state.totalTimeInSeconds
     // get the value that the user typed in
     const userInput = event.target.value
@@ -133,7 +116,6 @@ class CreateRun extends React.Component {
     // Object.assign({}, object-to-copy) allows you to combine two objects
     // updating the key in our state with what the user typed in
     runCopy[runKey] = userInput
-    // runCopy['date'] = formattedDate
     runCopy['time'] = formattedTime
     if (runCopy.distance && formattedTime) {
       const pace = this.averagePace(runCopy.distance, formattedTime)
@@ -151,7 +133,6 @@ class CreateRun extends React.Component {
     event.preventDefault()
     const { msgAlert, history } = this.props
     const run = this.state.run
-    // const userImage = this.state.userImage
     axios({
       url: `${apiUrl}/runs/`,
       method: 'POST',

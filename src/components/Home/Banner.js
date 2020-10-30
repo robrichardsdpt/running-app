@@ -9,6 +9,8 @@ class Banner extends React.Component {
       image: ''
     }
   }
+
+  // api call to get random photo from unsplash
   componentDidMount () {
     axios.get('https://api.unsplash.com/photos/random/?collections=98358577&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
       .then(response => {
@@ -35,7 +37,6 @@ class Banner extends React.Component {
     console.log(this.state)
     return (
       <div style={theme}>
-        {/* <img src={`${this.state.image}`} alt='picture'/> */}
       </div>
     )
   }

@@ -10,6 +10,7 @@ class Home extends React.Component {
       image: ''
     }
   }
+  // api call to get random image from Unsplash API
   componentDidMount () {
     axios.get('https://api.unsplash.com/photos/random/?collections=98358577&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
       .then(response => {

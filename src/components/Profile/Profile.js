@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
-// import Banner from '../Home/Banner'
 import Graph from '../Graph/Graph'
 import DistanceGraph from '../Graph/DistanceGraph'
 
@@ -21,6 +20,7 @@ class Profile extends React.Component {
   } // constructor
 
   componentDidMount () {
+    // get index request
     axios({
       url: `${apiUrl}/runs/`,
       method: 'GET',
@@ -38,6 +38,7 @@ class Profile extends React.Component {
   }
 
   render () {
+    // converts time to user friendly format
     const timeConverted = function (seconds) {
       const hours = Math.floor(seconds / (60 * 60))
 
@@ -61,6 +62,7 @@ class Profile extends React.Component {
       return `${obj.h}:${obj.m}:${obj.s}`
     }
 
+    // calculates total Time and presents in user friendly format
     const totalTimeRunning = function (array) {
       let totalTime = 0
       for (let i = 0; i < array.length; i++) {
@@ -88,6 +90,7 @@ class Profile extends React.Component {
       return `${obj.h}:${obj.m}:${obj.s}`
     }
 
+    // calculates average time running and presents in user friendly format
     const averageTimeRunning = function (array) {
       let totalTime = 0
       for (let i = 0; i < array.length; i++) {
@@ -116,6 +119,7 @@ class Profile extends React.Component {
       return `${obj.h}:${obj.m}:${obj.s} per run`
     }
 
+    // calculates the total distance ran
     const totalDistanceRunning = function (array) {
       let totalDistance = 0
       for (let i = 0; i < array.length; i++) {
@@ -123,6 +127,8 @@ class Profile extends React.Component {
       }
       return totalDistance
     }
+
+    // JSX for all runs to be shown on index
     const userRunArray = this.state.userRuns.map(run => {
       return (
         <div key={run.id} size="4" className="stack">
@@ -155,6 +161,7 @@ class Profile extends React.Component {
       )
     })
 
+    // calculates maxTimeRunning and presents in userFriendly format
     const maxTimeRunning = function (array) {
       let maxTime = 0
       for (let i = 0; i < array.length; i++) {
@@ -183,9 +190,13 @@ class Profile extends React.Component {
       }
       return `${obj.h}:${obj.m}:${obj.s}`
     }
+
+    // calculates average distance per run
     const averageDistancePerRun = function (distance, runs) {
       return parseFloat(distance / runs).toFixed(2)
     }
+
+    // calculates max distance ran in one run
     const maxDistanceRunning = function (array) {
       let maxDistance = 0
       for (let i = 0; i < array.length; i++) {
@@ -196,6 +207,7 @@ class Profile extends React.Component {
       return maxDistance
     }
 
+    // calculates the average pace
     const averagePace = function (distance, array) {
       let totalTime = 0
       for (let i = 0; i < array.length; i++) {
@@ -211,6 +223,8 @@ class Profile extends React.Component {
       }
       return `${milesInMinutes}:${seconds}`
     }
+
+    // finds the fastest pace and speed for a run
     const fastestPace = function (array) {
       let fastestSpd = 0
       let fastestPace = ''
@@ -223,6 +237,7 @@ class Profile extends React.Component {
       return `${fastestPace} or ${fastestSpd} mph`
     }
 
+    // conditions for isLoading, if there are no runs, and other situations.  Page populates with information if there are more than 0 runs
     let jsx
     let jsxData
     // while the runs are loading
@@ -253,10 +268,6 @@ class Profile extends React.Component {
             <h4>{`Average Pace: ${averagePace(totalDistanceRunning(this.state.userRuns), this.state.userRuns)} per mile`}</h4>
             <h4>{`Fastest Pace: ${fastestPace(this.state.userRuns)}`}</h4>
           </div>
-          {/* <Route render={() => (
-            <Banner/>
-          )}
-          /> */}
           <AuthenticatedRoute user={this.state.token} render={() => (
             <Graph clearUser={this.clearUser} user={this.state.token} data = {this.state.userRuns}/>
           )} />

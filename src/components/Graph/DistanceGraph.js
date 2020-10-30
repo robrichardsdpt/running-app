@@ -1,8 +1,6 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { MDBContainer } from 'mdbreact'
-// import axios from 'axios'
-// import apiUrl from '../../apiConfig'
 
 class ChartsPage extends React.Component {
   state = {
@@ -30,12 +28,13 @@ class ChartsPage extends React.Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [0, 10, 20]
+          data: []
         }]
     }
   }
 
   render () {
+    // create date array
     const dateToArray = function (data) {
       const dataToArray = []
       for (let i = 0; i < data.length; i++) {
@@ -43,6 +42,8 @@ class ChartsPage extends React.Component {
       }
       return (dataToArray)
     }
+
+    // create distance array
     const distanceToArray = function (data) {
       const dataToArray = []
       for (let i = 0; i < data.length; i++) {
@@ -50,11 +51,13 @@ class ChartsPage extends React.Component {
       }
       return (dataToArray)
     }
-    console.log(this.props)
+
+    // data already reversed when sent through, function calls with data to calculate in prep for graph
     const reversedData = this.props.data
     const dateArray = dateToArray(reversedData)
     const distanceArray = distanceToArray(reversedData)
 
+    // copy object and create new one to send to chart to create
     const dataCopy = Object.assign({}, this.state.dataLine)
     dataCopy.labels = dateArray
     dataCopy.datasets[0].data = distanceArray
