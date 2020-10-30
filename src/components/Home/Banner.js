@@ -14,7 +14,6 @@ class Banner extends React.Component {
   componentDidMount () {
     axios.get('https://api.unsplash.com/photos/random/?collections=98358577&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
       .then(response => {
-        console.log(response)
         this.setState({
           image: response.data.urls.regular
         })
@@ -34,7 +33,6 @@ class Banner extends React.Component {
       paddingTop: '95%',
       marginTop: '20px'
     }
-    console.log(this.state)
     return (
       <div style={theme}>
       </div>

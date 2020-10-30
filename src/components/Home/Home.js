@@ -14,7 +14,6 @@ class Home extends React.Component {
   componentDidMount () {
     axios.get('https://api.unsplash.com/photos/random/?collections=98358577&client_id=DNXL-N0EmhKnyn8n1Vz9DYomyQCI-xhwfDD5T-o86A0')
       .then(response => {
-        console.log(response)
         this.setState({
           image: response.data.urls.regular
         })
@@ -33,7 +32,6 @@ class Home extends React.Component {
       height: '0',
       paddingTop: '66.64%'
     }
-    console.log(this.state)
     return (
       <div>
         <div style={theme}>

@@ -32,7 +32,6 @@ class CreateRun extends React.Component {
   // handles the time change element and converts from user friendly format to seconds, intuitively
   handleTimeChange = (event) => {
     const timeArray = event.target.value.split(':')
-    console.log(timeArray)
     if (timeArray.length === 3) {
       const hours = parseInt(timeArray[0])
       const minutes = parseInt(timeArray[1])
@@ -126,7 +125,6 @@ class CreateRun extends React.Component {
     // updating the state with our new copy
     this.setState({ run: runCopy
     })
-    console.log(runCopy)
   }
 
   handleSubmit = (event) => {

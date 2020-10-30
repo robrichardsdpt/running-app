@@ -11,7 +11,6 @@ import Banner from '../Home/Banner'
 class RunDetail extends React.Component {
   constructor (props) {
     super(props)
-    console.log(this.props)
     this.state = {
       // conditions for loading of files and redirects
       isLoaded: false,
@@ -29,13 +28,11 @@ class RunDetail extends React.Component {
   // on update field for time, converts user input into back end appropriate data.
   handleTimeChange = (event) => {
     const timeArray = event.target.value.split(':')
-    console.log(timeArray)
     if (timeArray.length === 3) {
       const hours = parseInt(timeArray[0])
       const minutes = parseInt(timeArray[1])
       const seconds = parseInt(timeArray[2])
       const totalSeconds = (hours * 3600) + (minutes * 60) + seconds
-      console.log(totalSeconds)
       const runCopy = Object.assign({}, this.state.run)
       runCopy['time'] = totalSeconds
       if (runCopy.distance && runCopy.time) {
@@ -102,9 +99,7 @@ class RunDetail extends React.Component {
 
   // Handles all other form changes
   handleChange = (event) => {
-    const formattedTime = this.state.totalTimeInSeconds
     const runKey = event.target.name
-    console.log(formattedTime)
     const userInput = event.target.value
     // get the name of the input that the user typed in
     // make a copy of the state
@@ -112,7 +107,6 @@ class RunDetail extends React.Component {
     // Object.assign({}, object-to-copy) allows you to combine two objects
     // updating the key in our state with what the user typed in
     runCopy[runKey] = userInput
-    console.log(runCopy)
     if (runCopy.distance && runCopy.time) {
       const pace = this.averagePace(runCopy.distance, runCopy.time)
       const speed = this.averageSpeed(runCopy.distance, runCopy.time)
@@ -120,10 +114,8 @@ class RunDetail extends React.Component {
       runCopy['average_spd'] = speed
     }
     // updating the state with our new copy
-    console.log(runCopy)
     this.setState({ run: runCopy
     })
-    console.log(runCopy)
   }
 
   // The edit submit and patch request
