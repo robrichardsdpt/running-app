@@ -35,7 +35,7 @@ class SignUp extends Component {
         message: messages.signUpSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/home'))
       .catch(error => {
         this.setState({ email: '', password: '', passwordConfirmation: '' })
         msgAlert({
@@ -87,6 +87,7 @@ class SignUp extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
+            Password must be 5 characters long
             <Button
               variant="primary"
               type="submit"
